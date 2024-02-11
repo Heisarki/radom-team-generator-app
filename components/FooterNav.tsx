@@ -1,4 +1,4 @@
-import { homeIcon, profileIcon, teamIcon } from '@/utils/constants/icon'
+import { homeIcon, profileIcon, teamIcon } from '@/constants/icon'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'

@@ -1,5 +1,5 @@
 "use client";
-import { PlayerListDataType, playerListData } from "@/utils/constants";
+import { PlayerListDataType, playerListData } from "@/constants";
 import {
   createContext,
   useContext,
@@ -16,11 +16,12 @@ export type PlayerListContextType = {
   searchValue?: string,
   setSearchValue?: Dispatch<SetStateAction<string>>,
   onSeachInputChange?: (e: any) => void,
-  selectedPlayerChip?: string[],
-  setSelectedPlayerChip?: Dispatch<SetStateAction<string[]>>,
-  handleOnClickChip?: (e: any) => void,
+  handleOnClickAddChip?: (e: any) => void,
+  handleOnClickRemoveChip?: (e: any) => void,
   groupPlayerList?: PlayerListDataType[],
   setGroupPlayerList?: Dispatch<SetStateAction<PlayerListDataType[]>>,
+  selectedPlayerListChip?: string[],
+  setSelectedPlayerListChip?: Dispatch<SetStateAction<string[]>>,
 }
 
 /*-------------------------Context----------------------------*/
@@ -35,7 +36,7 @@ export const PlayerListContextProvider = ({
   const [constantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [filteredPlayerList, setFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [searchValue, setSearchValue] = useState('')
-  const [selectedPlayerChip, setSelectedPlayerChip] = useState<string[]>([]);
+  const [selectedPlayerListChip, setSelectedPlayerListChip] = useState<string[]>([]);
   const [groupPlayerList, setGroupPlayerList] = useState<PlayerListDataType[]>([]);
 
   /*------------------Search logic-------------------*/
@@ -52,38 +53,38 @@ export const PlayerListContextProvider = ({
     setSearchValue(value)
   }
 
-  /*------------------On clicking chip logic-------------------*/
-  function handleOnClickChip(e: any) {
+  /*------On clicking chip for adding Player to a Group--------*/
+  function handleOnClickAddChip(e: any) {
     const id = e.target.getAttribute("aria-label")
-    if (selectedPlayerChip.includes(id)) {
-      setSelectedPlayerChip(selectedPlayerChip.filter(ele => ele !== id))
-      setGroupPlayerList([
-        ...groupPlayerList.filter(ele => ele.id !== id)
-      ])
-      setFilteredPlayerList([
-        ...filteredPlayerList,
-        ...filteredPlayerList.filter(ele => ele.id !== id)
-      ])
-    }
-    else {
-      setSelectedPlayerChip([...selectedPlayerChip, id])
-      setGroupPlayerList([
-        ...groupPlayerList,
-        ...filteredPlayerList.filter(ele => ele.id === id)
-      ])
-      setFilteredPlayerList([
-        ...filteredPlayerList.filter(ele => ele.id !== id)
-      ])
-    }
+    setSelectedPlayerListChip([...selectedPlayerListChip, id])
+    setFilteredPlayerList([
+      ...filteredPlayerList.filter(ele => ele.id !== id)
+    ])
+    setGroupPlayerList([
+      ...groupPlayerList,
+      ...filteredPlayerList.filter(ele => ele.id === id)
+    ])
   }
-
+  /*------On clicking chip for removing Player from a Group--------*/
+  function handleOnClickRemoveChip(e: any) {
+    const id = e.target.getAttribute("aria-label")
+    setSelectedPlayerListChip(selectedPlayerListChip.filter(ele => ele !== id))
+    setFilteredPlayerList([
+      ...filteredPlayerList,
+      ...groupPlayerList.filter(ele => ele.id === id)
+    ])
+    setGroupPlayerList([
+      ...groupPlayerList.filter(ele => ele.id !== id)
+    ])
+  }
   /*------------------Context value-------------------*/
   const value = {
     filteredPlayerList, setFilteredPlayerList,
     searchValue, setSearchValue,
     onSeachInputChange,
-    handleOnClickChip,
-    selectedPlayerChip, setSelectedPlayerChip,
+    handleOnClickAddChip,
+    handleOnClickRemoveChip,
+    selectedPlayerListChip, setSelectedPlayerListChip,
     groupPlayerList, setGroupPlayerList,
   }
 
@@ -94,9 +95,5 @@ export const PlayerListContextProvider = ({
   );
 };
 
+/*------------------------Context Hook-----------------------------*/
 export const usePlayerListContext = () => useContext(PlayerListContext);
-/*-----------------------------------------------------*/
-
-
-/*-----------------------------------------------------*/
-/*-----------------------------------------------------*/

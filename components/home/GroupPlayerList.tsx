@@ -4,7 +4,7 @@ import React from 'react'
 import Chip from '../ui/Chip';
 
 export default function GroupPlayerList() {
-    const { groupPlayerList, handleOnClickChip, selectedPlayerChip }: PlayerListContextType = usePlayerListContext();
+    const { groupPlayerList, handleOnClickRemoveChip, selectedPlayerListChip }: PlayerListContextType = usePlayerListContext();
     return (
         <>
             {
@@ -13,8 +13,8 @@ export default function GroupPlayerList() {
                         {
                             groupPlayerList?.map(ele => (
                                 <Chip
-                                    selectedChip={selectedPlayerChip}
-                                    onClick={handleOnClickChip}
+                                    selectedChip={selectedPlayerListChip}
+                                    onClick={handleOnClickRemoveChip}
                                     key={ele.id}
                                     text={ele.name}
                                     label={ele.id}

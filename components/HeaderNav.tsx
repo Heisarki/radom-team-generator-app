@@ -1,5 +1,5 @@
 import React from 'react'
-import { profileIcon } from '@/utils/constants/icon'
+import { profileIcon } from '@/constants/icon'
 import Image from 'next/image'
 import ThemToggle from './ui/ThemToggle'
 
