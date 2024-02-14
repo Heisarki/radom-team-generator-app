@@ -25,6 +25,9 @@ const config: Config = {
             hover: {
               900: "var(--chip-hover-900)"
             }
+          },
+          button: {
+            900: "var(--button-foreground-900)"
           }
         },
         background: {
@@ -37,6 +40,9 @@ const config: Config = {
             hover: {
               900: "var(--chip-hover-900)"
             }
+          },
+          button: {
+            900: "var(--button-900)"
           }
         },
       },
