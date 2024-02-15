@@ -12,7 +12,7 @@ export default function GroupPlayerList() {
                 {
                     groupPlayerList?.map((groupPlayerEle: GroupPlayerListType) => (
                         <div className='flex items-center gap-2 px-2'>
-                            <p>{groupPlayerEle.groupName}</p>
+                            <p>{groupPlayerEle.groupNumber}</p>
                             <div className="flex gap-4 overflow-auto rounded-xl items-center">
                                 {
                                     groupPlayerEle.groupList.map((playerEle: PlayerListDataType) => {
