@@ -2,7 +2,7 @@
 import GroupPlayerList from "@/components/home/GroupPlayerList";
 import PlayerList from "@/components/home/PlayerList";
 import SearchInput from "@/components/home/SearchInput";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/button";
 export default function Home() {
   return (
     <div className="flex relative flex-col">
