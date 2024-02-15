@@ -1,4 +1,4 @@
-import { homeIcon, profileIcon, teamIcon } from '@/utils/constants/icon'
+import { homeIcon, profileIcon, teamIcon } from '@/constants/icon'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ export default function FooterNav() {
         }
     ]
     return (
-        <nav className='fixed bg-muted bottom-0 left-0 flex justify-between items-center right-0 h-16  px-8 text-foreground-900 bg-background-700'>
+        <nav className='fixed bg-muted bottom-0 left-0 flex justify-between items-center right-0 h-16 px-8 text-foreground-900 bg-background-700'>
             {
                 navList.map(ele => (
                     <Link
