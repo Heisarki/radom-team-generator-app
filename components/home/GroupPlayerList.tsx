@@ -10,8 +10,8 @@ export default function GroupPlayerList() {
         return (
             <div className='flex flex-col overflow-auto border border-background-600 rounded-xl gap-3 py-2'>
                 {
-                    groupPlayerList?.map((groupPlayerEle: GroupPlayerListType) => (
-                        <div className='flex items-center gap-2 px-2'>
+                    groupPlayerList?.map((groupPlayerEle: GroupPlayerListType, index: number) => (
+                        <div className='flex items-center gap-2 px-2' key={groupPlayerEle.groupNumber + index}>
                             <p>{groupPlayerEle.groupNumber}</p>
                             <div className="flex gap-4 overflow-auto rounded-xl items-center">
                                 {
