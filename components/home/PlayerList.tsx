@@ -3,11 +3,11 @@ import { playerListData } from '@/constants'
 import React, { useEffect, useState } from 'react'
 import Chip from '../ui/Chip'
 import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerListContext'
-import Button from '../ui/Button'
 import { CreatedTeamType, PlayerListDataType } from '@/type'
+import { Button } from '../ui/button'
 
 export default function PlayerList() {
-    const { selectedPlayerListChip, handleOnClickAddChip, filteredPlayerList, handleOnClickCreateTeam, createdTeam }: PlayerListContextType = usePlayerListContext();
+    const { selectedPlayerListChip, handleOnClickAddChip, filteredPlayerList, createdTeam, handleOnClickCreateTeam }: PlayerListContextType = usePlayerListContext();
 
     return (
         <div className="flex flex-wrap gap-4">
@@ -25,10 +25,11 @@ export default function PlayerList() {
             {/* {
                 filteredPlayerList?.length === 0 && */}
             <div className='flex justify-center w-full'>
-                <Button
-                    btnText="Create team"
+                <Button className='w-full text-slate-50'
                     onClick={handleOnClickCreateTeam}
-                />
+                >
+                    Create Team
+                </Button>
             </div>
             <div className='flex justify-between w-full'>
                 {

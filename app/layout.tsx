@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-50 dark:bg-background-900`}>
+      <body className={`${inter.className} bg-background`}>
         <PlayerListContextProvider>
           <ThemeProvider
             attribute="class"

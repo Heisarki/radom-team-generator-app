@@ -1,7 +1,9 @@
 "use client";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
-import { randomizeArrayIndex, toaster } from "@/utils";
+import { toaster } from "@/utils";
+import { randomizeArrayIndex } from "@/utils/randomizeArrayIndex";
+
 import {
   createContext,
   useContext,
