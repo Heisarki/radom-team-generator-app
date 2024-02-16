@@ -12,5 +12,5 @@ export type PlayerListDataType = {
 
 export type CreatedTeamType = {
     teamName: string,
-    teamList: PlayerListDataType
+    teamList: PlayerListDataType[],
 }
