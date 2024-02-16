@@ -32,12 +32,12 @@ export default function PlayerList() {
             </div>
             <div className='flex justify-between w-full'>
                 {
-                    createdTeam?.map((createTeamEle: CreatedTeamType) => (
-                        <div className='flex flex-col'>
+                    createdTeam?.map((createTeamEle: CreatedTeamType, index: number) => (
+                        <div className='flex flex-col' key={index}>
                             <h1 className='text-2xl'>{createTeamEle.teamName}</h1>
                             {
                                 createTeamEle.teamList.map((teamListEle: PlayerListDataType) => (
-                                    <p>{teamListEle.name}</p>
+                                    <p key={teamListEle.id}>{teamListEle.name}</p>
                                 ))
                             }
                         </div>
