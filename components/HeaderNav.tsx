@@ -1,7 +1,6 @@
 import React from 'react'
 import { profileIcon } from '@/constants/icon'
 import Image from 'next/image'
-import ThemToggle from './ui/ThemToggle'
 import { ModeToggle } from './ui/mode-toggle'
 
 export default function HeaderNav() {
