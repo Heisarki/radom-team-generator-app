@@ -1,7 +1,7 @@
 "use client";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
-import { randomizeArrayIndex } from "@/utils";
+import { randomizeArrayIndex, toaster } from "@/utils";
 import {
   createContext,
   useContext,
@@ -43,7 +43,7 @@ export const PlayerListContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const [constantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
+  const [constantPlayerList, setConstantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [filteredPlayerList, setFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [groupPlayerList, setGroupPlayerList] = useState<GroupPlayerListType[]>([]);
   const [selectedPlayerListChip, setSelectedPlayerListChip] = useState<string[]>([]);
@@ -80,6 +80,9 @@ export const PlayerListContextProvider = ({
     const id = e.target.getAttribute("aria-label")
     setSelectedPlayerListChip([...selectedPlayerListChip, id])
     setFilteredPlayerList([
+      ...filteredPlayerList.filter(ele => ele.id !== id)
+    ])
+    setConstantPlayerList([
       ...filteredPlayerList.filter(ele => ele.id !== id)
     ])
     const playerToBeAdded: PlayerListDataType = filteredPlayerList.filter(ele => ele.id === id)[0]
@@ -148,6 +151,10 @@ export const PlayerListContextProvider = ({
           ...filteredPlayerList,
           ...playerToBeRemoved
         ])
+        setConstantPlayerList([
+          ...filteredPlayerList,
+          ...playerToBeRemoved
+        ])
         let tempGroupPlayerList = groupPlayerList.map((groupPlayerEle: GroupPlayerListType, index: number) => (
           {
             ...groupPlayerEle,
@@ -183,6 +190,10 @@ export const PlayerListContextProvider = ({
           ...filteredPlayerList,
           playerToBeRemoved
         ])
+        setConstantPlayerList([
+          ...filteredPlayerList,
+          playerToBeRemoved
+        ])
         setGroupPlayerList(groupPlayerList.map((groupPlayerEle: GroupPlayerListType) => (
           {
             ...groupPlayerEle,
@@ -198,6 +209,10 @@ export const PlayerListContextProvider = ({
   }
   /*-------On clicking generating Team player handler------------*/
   function handleOnClickCreateTeam() {
+    if (filteredPlayerList.length > 0) {
+      toaster.error("All the players must be grouped!")
+      return;
+    }
     // creating the team template array data
     const createdTeamTemplate: CreatedTeamType[] = [];
     for (let i = 0; i < NUMBER_OF_PLAYER_IN_ONE_GROUP; i++) {
