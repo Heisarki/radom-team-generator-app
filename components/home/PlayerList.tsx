@@ -1,5 +1,4 @@
 'use client'
-import { playerListData } from '@/constants'
 import React, { useEffect, useState } from 'react'
 import Chip from '../ui/Chip'
 import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerListContext'
