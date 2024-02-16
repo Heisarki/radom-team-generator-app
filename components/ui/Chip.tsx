@@ -18,7 +18,7 @@ export default function Chip({
             aria-label={label}
             key={key}
             onClick={onClick}
-            className={`${selectedChip?.includes(label) && `bg-background-chip-hover-900`} border py-2 px-4 rounded-xl text-muted-foreground cursor-pointer hover:bg-background-chip-hover-900 flex-shrink-0`}
+            className={`${selectedChip?.includes(label) && ``} border py-2 px-4 rounded-xl flex-shrink-0 bg-secondary`}
         >
             <p aria-label={label}>{text}</p>
         </div>

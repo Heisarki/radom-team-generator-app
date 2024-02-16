@@ -25,7 +25,7 @@ export default function FooterNav() {
         }
     ]
     return (
-        <nav className='fixed bottom-0 left-0 flex justify-between items-center right-0 h-16 px-8 text-foreground-900 bg-muted'>
+        <nav className='fixed bottom-0 left-0 flex justify-between items-center right-0 h-16 px-8 bg-secondary'>
             {
                 navList.map(ele => (
                     <Link

@@ -9,7 +9,7 @@ export default function SearchInput() {
         <input
             value={searchValue}
             onChange={onSeachInputChange}
-            className="min-w-full px-5 py-3 rounded-xl border focus:border-none focus:outline-1 outline-slate-950 text-white"
+            className="min-w-full px-5 py-3 rounded-xl border focus:border-none focus:outline-1 outline-slate-950 bg-input"
             placeholder="Search for a player"
             type="search"
         />
