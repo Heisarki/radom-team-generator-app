@@ -1,6 +1,7 @@
 "use client";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
+import { toaster } from "@/utils";
 import { randomizeArrayIndex } from "@/utils/randomizeArrayIndex";
 
 import {
@@ -210,10 +211,10 @@ export const PlayerListContextProvider = ({
   }
   /*-------On clicking generating Team player handler------------*/
   function handleOnClickCreateTeam() {
-    // if (filteredPlayerList.length > 0) {
-    //   // toaster.error("All the players must be grouped!")
-    //   return;
-    // }
+    if (filteredPlayerList.length > 0) {
+      toaster.error("All the players must be grouped!")
+      return;
+    }
     // creating the team template array data
     const createdTeamTemplate: CreatedTeamType[] = [];
     for (let i = 0; i < NUMBER_OF_PLAYER_IN_ONE_GROUP; i++) {
