@@ -1,6 +1,7 @@
 "use client";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
+import { randomizeArrayIndex } from "@/utils";
 import {
   createContext,
   useContext,
@@ -24,6 +25,9 @@ export type PlayerListContextType = {
   setGroupPlayerList?: Dispatch<SetStateAction<GroupPlayerListType[]>>,
   selectedPlayerListChip?: string[],
   setSelectedPlayerListChip?: Dispatch<SetStateAction<string[]>>,
+  createdTeam?: CreatedTeamType[],
+  setCreatedTeam?: Dispatch<SetStateAction<CreatedTeamType[]>>,
+  handleOnClickCreateTeam: () => void,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -192,6 +196,31 @@ export const PlayerListContextProvider = ({
       }
     }
   }
+  /*-------On clicking generating Team player handler------------*/
+  function handleOnClickCreateTeam() {
+    // creating the team template array data
+    const createdTeamTemplate: CreatedTeamType[] = [];
+    for (let i = 0; i < NUMBER_OF_PLAYER_IN_ONE_GROUP; i++) {
+      const teamTeamplate: CreatedTeamType = {
+        teamName: teamName[i],
+        teamList: []
+      }
+      createdTeamTemplate.push(teamTeamplate);
+    }
+    //
+    for (let i = 0; i < groupPlayerList.length; i++) {
+      const groupPlayer = groupPlayerList[i].groupList;
+      console.log("GROUP !", groupPlayer)
+      const randomIndex = randomizeArrayIndex(NUMBER_OF_PLAYER_IN_ONE_GROUP);
+      for (let j = 0; j < NUMBER_OF_PLAYER_IN_ONE_GROUP; j++) {
+        console.log("GROUP", { randomIndex }, randomIndex[j])
+        createdTeamTemplate[j].teamList.push(groupPlayer[randomIndex[j]])
+      }
+    }
+    console.log("GROUP created Team", createdTeamTemplate)
+    setCreatedTeam(createdTeamTemplate)
+  }
+
   /*------------------Context value-------------------*/
   const value = {
     filteredPlayerList, setFilteredPlayerList,
@@ -201,6 +230,8 @@ export const PlayerListContextProvider = ({
     handleOnClickRemoveChip,
     selectedPlayerListChip, setSelectedPlayerListChip,
     groupPlayerList, setGroupPlayerList,
+    createdTeam, setCreatedTeam,
+    handleOnClickCreateTeam,
   }
 
   return (
