@@ -1,36 +1,19 @@
-import { homeIcon, profileIcon, teamIcon } from '@/constants/icon'
+"use client"
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { NAVLIST } from '@/constants'
 
 export default function FooterNav() {
-    const navList = [
-        {
-            id: 1,
-            text: "Home",
-            icon: homeIcon,
-            link: "/",
-        },
-        {
-            id: 2,
-            text: "Teams",
-            icon: teamIcon,
-            link: "/teams",
-        },
-        {
-            id: 3,
-            text: "Profile",
-            icon: profileIcon,
-            link: "/profile",
-        }
-    ]
+    const pathname = usePathname()
     return (
-        <nav className='fixed bottom-0 left-0 flex justify-between items-center right-0 h-16 px-8 bg-secondary'>
+        <nav className='fixed bottom-0 left-0 flex justify-between items-center right-0 h-16 px-8 bg-background'>
             {
-                navList.map(ele => (
+                NAVLIST.map(ele => (
                     <Link
                         key={ele.id}
-                        className='flex flex-col justify-center items-center gap-1 px-3 py-1 rounded-md cursor-pointer'
+                        className={`${pathname === ele.link && 'bg-secondary'} flex flex-col justify-center items-center gap-1 px-3 pt-1 rounded-md cursor-pointer`}
                         href={ele.link}
                     >
                         <Image
@@ -42,6 +25,6 @@ export default function FooterNav() {
                     </Link>
                 ))
             }
-        </nav>
+        </nav >
     )
 }
