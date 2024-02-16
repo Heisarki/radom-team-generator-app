@@ -2,7 +2,7 @@
 import { GroupPlayerListType, PlayerListContextType, usePlayerListContext } from '@/context/PlayerListContext';
 import React from 'react'
 import Chip from '../ui/Chip';
-import { PlayerListDataType } from '@/constants';
+import { PlayerListDataType } from '@/type';
 
 export default function GroupPlayerList() {
     const { groupPlayerList, handleOnClickRemoveChip, selectedPlayerListChip }: PlayerListContextType = usePlayerListContext();
