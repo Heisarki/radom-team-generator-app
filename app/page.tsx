@@ -1,10 +1,10 @@
-"use client"
+import AddPlayerDialog from "@/components/home/AddPlayerDialog";
 import GroupPlayerList from "@/components/home/GroupPlayerList";
 import PlayerList from "@/components/home/PlayerList";
 import SearchInput from "@/components/home/SearchInput";
 export default function Home() {
   return (
-    <div className="flex relative flex-col">
+    <div className="flex relative flex-col pb-10">
       <div className="sticky top-16 pb-3 bg-background pt-2">
         <SearchInput />
       </div>
@@ -12,6 +12,7 @@ export default function Home() {
         <GroupPlayerList />
         <PlayerList />
       </div>
-    </div>
+      <AddPlayerDialog />
+    </div >
   );
 }
