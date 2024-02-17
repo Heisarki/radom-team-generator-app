@@ -58,7 +58,7 @@ export default function AddPlayerDialog() {
             <DialogDescription className='text-start flex flex-row gap-[1px]'>
               <FaInfoCircle className='w-12 mt-1' />
               <p className='pr-5'>
-                Here you can add new players, once the players are added click on "Confirm" to save them.
+                {`Here you can add new players, once the players are added click on "Confirm" to save them.`}
               </p>
             </DialogDescription>
           </DialogHeader>
