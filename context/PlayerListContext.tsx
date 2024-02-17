@@ -1,4 +1,5 @@
 "use client";
+import { useToast } from "@/components/ui/use-toast";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
 import { toaster } from "@/utils";
@@ -30,6 +31,7 @@ export type PlayerListContextType = {
   createdTeam?: CreatedTeamType[],
   setCreatedTeam?: Dispatch<SetStateAction<CreatedTeamType[]>>,
   handleOnClickCreateTeam: () => void,
+  handleOnclickClickConfirmAddPlayer: () => void,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -45,6 +47,7 @@ export const PlayerListContextProvider = ({
 }: {
   children: ReactNode
 }) => {
+  const { toast } = useToast();
   const [constantPlayerList, setConstantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [filteredPlayerList, setFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [groupPlayerList, setGroupPlayerList] = useState<GroupPlayerListType[]>([]);
@@ -211,8 +214,13 @@ export const PlayerListContextProvider = ({
   }
   /*-------On clicking generating Team player handler------------*/
   function handleOnClickCreateTeam() {
-    if (filteredPlayerList.length > 0) {
-      toaster.error("All the players must be grouped!")
+    if (groupPlayerList[groupPlayerList.length - 1].groupList.length !== NUMBER_OF_PLAYER_IN_ONE_GROUP) {
+      // toaster.error("All the players must be grouped!")
+      toast({
+        variant: "default",
+        title: "Create player group",
+        description: `To create teams players must be grouped in a group of ${NUMBER_OF_PLAYER_IN_ONE_GROUP}. Click on the Player name chip to start groupping them.`,
+      })
       return;
     }
     // creating the team template array data
@@ -237,6 +245,10 @@ export const PlayerListContextProvider = ({
     console.log("GROUP created Team", createdTeamTemplate)
     setCreatedTeam(createdTeamTemplate)
   }
+  /*------Add player to the PlayerList------------------*/
+  function handleOnclickClickConfirmAddPlayer() {
+
+  }
 
   /*------------------Context value-------------------*/
   const value = {
@@ -249,6 +261,7 @@ export const PlayerListContextProvider = ({
     groupPlayerList, setGroupPlayerList,
     createdTeam, setCreatedTeam,
     handleOnClickCreateTeam,
+    handleOnclickClickConfirmAddPlayer,
   }
 
   return (

@@ -24,7 +24,8 @@ export default function PlayerList() {
             {/* {
                 filteredPlayerList?.length === 0 && */}
             <div className='flex justify-center w-full'>
-                <Button className='w-full text-slate-50'
+                <Button
+                    className='w-full'
                     onClick={handleOnClickCreateTeam}
                 >
                     Create Team

@@ -4,7 +4,8 @@ import "./globals.css";
 import AppLayout from "@/components/AppLayout";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PlayerListContextProvider } from "@/context/PlayerListContext";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,10 +29,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster />
             <AppLayout>
               {children}
             </AppLayout>
+            <Toaster />
           </ThemeProvider>
         </PlayerListContextProvider>
       </body>
