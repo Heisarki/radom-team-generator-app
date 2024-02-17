@@ -45,33 +45,35 @@ export default function AddPlayerDrawer() {
             </div>
 
             <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
-                <DrawerContent className='flex flex-col gap-2 p-5'>
-                    <DrawerHeader>
-                        <DrawerDescription className='text-start flex flex-row gap-[1px]'>
-                            <FaInfoCircle className='w-12 mt-1' />
-                            <p className='pr-5'>
-                                {`Here you can add new players, once the players are added click on "Confirm" to save them.`}
-                            </p>
-                        </DrawerDescription>
-                    </DrawerHeader>
-                    <div className='flex gap-4 flex-col'>
-                        <Label className='text-start text-sm'>Player name</Label>
-                        <div className="flex w-full items-center space-x-2 ">
-                            <Input type="text" placeholder="Loinel Messi" />
-                            <Button type="submit">Add</Button>
+                <DrawerContent className='flex flex-col items-center'>
+                    <div className='flex flex-col gap-2 p-5 max-w-2xl'>
+                        <DrawerHeader>
+                            <DrawerDescription className='text-start flex flex-row gap-[1px]'>
+                                <FaInfoCircle className='w-12 mt-1' />
+                                <p className='pr-5'>
+                                    {`Here you can add new players, once the players are added click on "Confirm" to save them.`}
+                                </p>
+                            </DrawerDescription>
+                        </DrawerHeader>
+                        <div className='flex gap-4 flex-col'>
+                            <Label className='text-start text-sm'>Player name</Label>
+                            <div className="flex w-full items-center space-x-2 ">
+                                <Input type="text" placeholder="Loinel Messi" />
+                                <Button type="submit">Add</Button>
+                            </div>
                         </div>
+                        <ScrollArea className="h-52 w-full rounded-md border p-2">
+                            {
+                                arr.map(ele => (
+                                    <div key={ele} aria-label={ele} className='flex flex-row justify-between bg-secondary p-2 px-5 rounded-lg items-center mb-1'>
+                                        <p className="text-sm">{ele}</p>
+                                        <p className='rotate-45 cursor-pointer text-lg' onClick={handleRemovePlayer}>+</p>
+                                    </div>
+                                ))
+                            }
+                        </ScrollArea>
+                        <Button type="submit">Confirm</Button>
                     </div>
-                    <ScrollArea className="h-52 w-full rounded-md border p-2">
-                        {
-                            arr.map(ele => (
-                                <div key={ele} aria-label={ele} className='flex flex-row justify-between bg-secondary p-2 px-5 rounded-lg items-center mb-1'>
-                                    <p className="text-sm">{ele}</p>
-                                    <p className='rotate-45 cursor-pointer text-lg' onClick={handleRemovePlayer}>+</p>
-                                </div>
-                            ))
-                        }
-                    </ScrollArea>
-                    <Button type="submit">Confirm</Button>
                 </DrawerContent>
             </Drawer>
         </>
