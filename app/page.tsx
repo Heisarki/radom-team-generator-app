@@ -1,8 +1,9 @@
-import AddPlayerDialog from "@/components/home/AddPlayerDialog";
+import AddPlayerDialog from "@/components/home/CreatedTeamDialog";
 import AddPlayerDrawer from "@/components/home/AddPlayerDrawer";
 import GroupPlayerList from "@/components/home/GroupPlayerList";
 import PlayerList from "@/components/home/PlayerList";
 import SearchInput from "@/components/home/SearchInput";
+import CreatedTeamDialog from "@/components/home/CreatedTeamDialog";
 export default function Home() {
   return (
     <div className="flex relative flex-col pb-10">
@@ -13,8 +14,9 @@ export default function Home() {
         <GroupPlayerList />
         <PlayerList />
       </div>
-      {/* <AddPlayerDialog /> */}
       <AddPlayerDrawer />
+
+      <CreatedTeamDialog />
     </div >
   );
 }

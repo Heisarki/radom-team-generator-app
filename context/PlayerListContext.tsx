@@ -32,6 +32,8 @@ export type PlayerListContextType = {
   setCreatedTeam?: Dispatch<SetStateAction<CreatedTeamType[]>>,
   handleOnClickCreateTeam: () => void,
   handleOnclickClickConfirmAddPlayer: () => void,
+  openCreatedTeamDialog: boolean,
+  setOpenCreatedTeamDialog: Dispatch<SetStateAction<boolean>>,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -48,6 +50,7 @@ export const PlayerListContextProvider = ({
   children: ReactNode
 }) => {
   const { toast } = useToast();
+  const [openCreatedTeamDialog, setOpenCreatedTeamDialog] = useState(false)
   const [constantPlayerList, setConstantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [filteredPlayerList, setFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [groupPlayerList, setGroupPlayerList] = useState<GroupPlayerListType[]>([]);
@@ -244,6 +247,8 @@ export const PlayerListContextProvider = ({
     }
     console.log("GROUP created Team", createdTeamTemplate)
     setCreatedTeam(createdTeamTemplate)
+
+    setOpenCreatedTeamDialog(true)  // Open the Dialogbox which shows the saved player list
   }
   /*------Add player to the PlayerList------------------*/
   function handleOnclickClickConfirmAddPlayer() {
@@ -262,6 +267,7 @@ export const PlayerListContextProvider = ({
     createdTeam, setCreatedTeam,
     handleOnClickCreateTeam,
     handleOnclickClickConfirmAddPlayer,
+    openCreatedTeamDialog, setOpenCreatedTeamDialog,
   }
 
   return (
