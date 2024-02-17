@@ -45,7 +45,7 @@ export default function AddPlayerDrawer() {
             </div>
 
             <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
-                <DrawerContent className='flex flex-col items-center'>
+                <DrawerContent className='flex flex-col items-center  outline-none'>
                     <div className='flex flex-col gap-2 p-5 max-w-2xl'>
                         <DrawerHeader>
                             <DrawerDescription className='text-start flex flex-row gap-[1px]'>
