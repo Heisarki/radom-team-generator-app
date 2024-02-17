@@ -11,6 +11,7 @@ import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerLis
 import { playerListData, saveTeamIcon } from '@/constants';
 import Image from 'next/image';
 import { CreatedTeamType, PlayerListDataType } from '@/type';
+import SaveTeamIcon from '@/assets/svg/SaveTeamIcon';
 
 export default function CreatedTeamDialog() {
   const { openCreatedTeamDialog, setOpenCreatedTeamDialog, createdTeam }: PlayerListContextType = usePlayerListContext();
@@ -27,7 +28,7 @@ export default function CreatedTeamDialog() {
                 // Teams created
                 <div key={createdTeamELe.teamName} className='grid grid-rows-1 border rounded-xl pb-2' >
                   <div className='border w-full h-28 pl-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary'>
-                    <Image src={saveTeamIcon} alt="" />
+                    <SaveTeamIcon className={"fill-current"} />
                     <h1 className='text-lg'>Team {createdTeamELe.teamName}</h1>
                     <p className='text-sm'>{createdTeamELe.teamList.length} Players</p>
                   </div>
