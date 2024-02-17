@@ -44,7 +44,7 @@ export default function AddPlayerDrawer() {
                 <p className="mb-1">+</p>
             </div>
 
-            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)} onRelease={() => console.log("GROUP CHANGE")}>
                 <DrawerContent className='flex flex-col items-center  outline-none'>
                     <div className='flex flex-col gap-2 p-5 max-w-2xl'>
                         <DrawerHeader>
@@ -53,6 +53,7 @@ export default function AddPlayerDrawer() {
                                 <p className='pr-5'>
                                     {`Here you can add new players, once the players are added click on "Confirm" to save them.`}
                                 </p>
+                                <p onClick={() => setOpenDrawer(false)} className='rotate-45 text-3xl cursor-pointer absolute right-5 top-5'>+</p>
                             </DrawerDescription>
                         </DrawerHeader>
                         <div className='flex gap-4 flex-col'>
