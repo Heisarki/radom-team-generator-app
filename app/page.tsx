@@ -1,4 +1,5 @@
 import AddPlayerDialog from "@/components/home/AddPlayerDialog";
+import AddPlayerDrawer from "@/components/home/AddPlayerDrawer";
 import GroupPlayerList from "@/components/home/GroupPlayerList";
 import PlayerList from "@/components/home/PlayerList";
 import SearchInput from "@/components/home/SearchInput";
@@ -12,7 +13,8 @@ export default function Home() {
         <GroupPlayerList />
         <PlayerList />
       </div>
-      <AddPlayerDialog />
+      {/* <AddPlayerDialog /> */}
+      <AddPlayerDrawer />
     </div >
   );
 }
