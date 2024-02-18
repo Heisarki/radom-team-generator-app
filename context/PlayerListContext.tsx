@@ -2,9 +2,7 @@
 import { useToast } from "@/components/ui/use-toast";
 import { playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
-import { toaster } from "@/utils";
 import { randomizeArrayIndex } from "@/utils/randomizeArrayIndex";
-
 import {
   createContext,
   useContext,
@@ -17,23 +15,29 @@ import {
 
 /*-------------------------Type----------------------------*/
 export type PlayerListContextType = {
-  filteredPlayerList?: PlayerListDataType[],
-  setFilteredPlayerList?: Dispatch<SetStateAction<PlayerListDataType[]>>,
-  searchValue?: string,
-  setSearchValue?: Dispatch<SetStateAction<string>>,
-  onSeachInputChange?: (e: any) => void,
-  handleOnClickAddChip?: (e: any) => void,
-  handleOnClickRemoveChip?: (e: any) => void,
-  groupPlayerList?: GroupPlayerListType[],
-  setGroupPlayerList?: Dispatch<SetStateAction<GroupPlayerListType[]>>,
-  selectedPlayerListChip?: string[],
-  setSelectedPlayerListChip?: Dispatch<SetStateAction<string[]>>,
-  createdTeam?: CreatedTeamType[],
-  setCreatedTeam?: Dispatch<SetStateAction<CreatedTeamType[]>>,
+  constantPlayerList: PlayerListDataType[],
+  setConstantPlayerList: Dispatch<SetStateAction<PlayerListDataType[]>>,
+  filteredPlayerList: PlayerListDataType[],
+  setFilteredPlayerList: Dispatch<SetStateAction<PlayerListDataType[]>>,
+  searchValue: string,
+  setSearchValue: Dispatch<SetStateAction<string>>,
+  onSeachInputChange: (e: any) => void,
+  handleOnClickAddChip: (e: any) => void,
+  handleOnClickRemoveChip: (e: any) => void,
+  groupPlayerList: GroupPlayerListType[],
+  setGroupPlayerList: Dispatch<SetStateAction<GroupPlayerListType[]>>,
+  selectedPlayerListChip: string[],
+  setSelectedPlayerListChip: Dispatch<SetStateAction<string[]>>,
+  createdTeam: CreatedTeamType[],
+  setCreatedTeam: Dispatch<SetStateAction<CreatedTeamType[]>>,
   handleOnClickCreateTeam: () => void,
   handleOnclickClickConfirmAddPlayer: () => void,
   openCreatedTeamDialog: boolean,
   setOpenCreatedTeamDialog: Dispatch<SetStateAction<boolean>>,
+  playersTobeAdded: PlayerListDataType[],
+  setPlayersTobeAdded: Dispatch<SetStateAction<PlayerListDataType[]>>,
+  playersTobeAddedInputValue: string,
+  setPlayersTobeAddedInpuValue: Dispatch<SetStateAction<string>>,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -70,6 +74,10 @@ export const PlayerListContextProvider = ({
     groupNumber: GROUP_NUMBER[currentGroupIndex],
     groupList: []
   })
+
+  const [playersTobeAdded, setPlayersTobeAdded] = useState<PlayerListDataType[]>([])
+  const [playersTobeAddedInputValue, setPlayersTobeAddedInpuValue] = useState<string>("")
+
   /*------------------Search logic-------------------*/
   useEffect(() => {
     if (searchValue)
@@ -132,8 +140,6 @@ export const PlayerListContextProvider = ({
     setGroupPlayerList(filteredArr)
 
   }, [currentPlayerGroup.groupList.length])
-
-  useEffect(() => { console.log("GROUP LIST", groupPlayerList) })
 
   /*------On clicking chip for removing Player from a Group--------*/
   function handleOnClickRemoveChip(e: any) {
@@ -257,6 +263,7 @@ export const PlayerListContextProvider = ({
 
   /*------------------Context value-------------------*/
   const value = {
+    constantPlayerList, setConstantPlayerList,
     filteredPlayerList, setFilteredPlayerList,
     searchValue, setSearchValue,
     onSeachInputChange,
@@ -268,6 +275,8 @@ export const PlayerListContextProvider = ({
     handleOnClickCreateTeam,
     handleOnclickClickConfirmAddPlayer,
     openCreatedTeamDialog, setOpenCreatedTeamDialog,
+    playersTobeAdded, setPlayersTobeAdded,
+    playersTobeAddedInputValue, setPlayersTobeAddedInpuValue,
   }
 
   return (
