@@ -2,27 +2,27 @@ import { homeIcon, profileIcon, teamIcon } from "."
 
 export const ROUTE = {
     HOME: "/",
-    TEAMS: "/teams",
+    CREATE_TEAM: "/create-team",
     PROFILE: "/profile",
 } as const
 
 export const NAVLIST = [
     {
         id: 1,
-        text: "Home",
+        title: "Home",
         icon: homeIcon,
-        link: "/",
+        route: "/",
     },
     {
         id: 2,
-        text: "Teams",
+        title: "Create",
         icon: teamIcon,
-        link: "/teams",
+        route: "/create-team",
     },
     {
         id: 3,
-        text: "Profile",
+        title: "Profile",
         icon: profileIcon,
-        link: "/profile",
+        route: "/profile",
     }
 ] as const

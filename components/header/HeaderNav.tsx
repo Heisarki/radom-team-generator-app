@@ -1,7 +1,8 @@
 import React from 'react'
 import { profileIcon } from '@/constants/icon'
 import Image from 'next/image'
-import { ModeToggle } from './ui/mode-toggle'
+import { ModeToggle } from '../ui/mode-toggle'
+import HeaderTitle from './HeaderTitle'
 
 export default function HeaderNav() {
     return (
@@ -14,9 +15,7 @@ export default function HeaderNav() {
                     alt="profile"
                 />
             </div>
-            <div>
-                <p className='font-semibold text-lg'>Pick players</p>
-            </div>
+            <HeaderTitle />
             <div className='absolute right-5 top-3'>
                 {/* <ThemToggle /> */}
                 <ModeToggle />

@@ -5,16 +5,13 @@ import {
     DrawerContent,
     DrawerDescription,
     DrawerHeader,
-    DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Button } from '../ui/button'
 import { FaInfoCircle } from "react-icons/fa";
 import { Label } from '@radix-ui/react-dropdown-menu';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
-import { AddPlayerDrawerContextProvider, AddPlayerDrawerContextType, useAddPlayerDrawerContext } from '@/context/AddPlayerDrawerContext';
-import { useToast } from '../ui/use-toast';
-import { PlayerListDataType } from '@/type';
+import { AddPlayerDrawerContextType, useAddPlayerDrawerContext } from '@/context/AddPlayerDrawerContext';
 
 export default function AddPlayerDrawer() {
     const {
@@ -25,7 +22,6 @@ export default function AddPlayerDrawer() {
         handleConfirmAddPlayerClick,
         handleRemovePlayerClick,
     }: AddPlayerDrawerContextType = useAddPlayerDrawerContext();
-    const { toast } = useToast();
     const [openDrawer, setOpenDrawer] = useState(false)
     function handleOpenDrawer() {
         setOpenDrawer(true)

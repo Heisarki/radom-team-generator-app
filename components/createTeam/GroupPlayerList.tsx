@@ -17,15 +17,13 @@ export default function GroupPlayerList() {
                                 {
                                     groupPlayerEle.groupList.map((playerEle: PlayerListDataType) => {
                                         return (
-                                            <>
-                                                <Chip
-                                                    selectedChip={selectedPlayerListChip}
-                                                    onClick={handleOnClickRemoveChip}
-                                                    key={playerEle.id}
-                                                    text={playerEle.name}
-                                                    label={playerEle.id}
-                                                />
-                                            </>
+                                            <Chip
+                                                selectedChip={selectedPlayerListChip}
+                                                onClick={handleOnClickRemoveChip}
+                                                key={playerEle.id}
+                                                text={playerEle.name}
+                                                label={playerEle.id}
+                                            />
                                         )
                                     })
                                 }

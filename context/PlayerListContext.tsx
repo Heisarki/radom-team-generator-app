@@ -12,6 +12,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { CreateTeamSettingsContextType, useCreateTeamSettingsContext } from "./CreateTeamSettingContext";
 
 /*-------------------------Type----------------------------*/
 export type PlayerListContextType = {
@@ -53,6 +54,7 @@ export const PlayerListContextProvider = ({
 }: {
   children: ReactNode
 }) => {
+  const { teamNames, selectedNumberOfTeam }: CreateTeamSettingsContextType = useCreateTeamSettingsContext()
   const { toast } = useToast();
   const [openCreatedTeamDialog, setOpenCreatedTeamDialog] = useState(false)
   const [constantPlayerList, setConstantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
@@ -61,10 +63,7 @@ export const PlayerListContextProvider = ({
   const [selectedPlayerListChip, setSelectedPlayerListChip] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState('')
   const [createdTeam, setCreatedTeam] = useState<CreatedTeamType[]>([])
-  const [teamName, setTeamName] = useState<string[]>([
-    "AA", "BB", "CC", "DD"
-  ])
-  const NUMBER_OF_PLAYER_IN_ONE_GROUP = 4
+  let NUMBER_OF_PLAYER_IN_ONE_GROUP: number = Number(selectedNumberOfTeam)
   const GROUP_NUMBER: number[] = []
   for (let i = 0; i < 20; i++) {
     GROUP_NUMBER.push(i + 1)
@@ -74,9 +73,21 @@ export const PlayerListContextProvider = ({
     groupNumber: GROUP_NUMBER[currentGroupIndex],
     groupList: []
   })
-
+  // useEffect(() => { console.log("GROUP TEWAM", teamNames, teamName) }, [teamName])
   const [playersTobeAdded, setPlayersTobeAdded] = useState<PlayerListDataType[]>([])
   const [playersTobeAddedInputValue, setPlayersTobeAddedInpuValue] = useState<string>("")
+  /*------------------On changing NUMBER_OF_PLAYER_IN_ONE_GROUP------------------ */
+  useEffect(() => {
+    NUMBER_OF_PLAYER_IN_ONE_GROUP = Number(selectedNumberOfTeam)
+    setCurrentGroupIndex(0)
+    setCurrentPlayerGroup({
+      groupNumber: GROUP_NUMBER[0],
+      groupList: []
+    })
+    setConstantPlayerList(playerListData.data)
+    setFilteredPlayerList(playerListData.data)
+    setGroupPlayerList([])
+  }, [selectedNumberOfTeam])
 
   /*------------------Search logic-------------------*/
   useEffect(() => {
@@ -236,7 +247,7 @@ export const PlayerListContextProvider = ({
     const createdTeamTemplate: CreatedTeamType[] = [];
     for (let i = 0; i < NUMBER_OF_PLAYER_IN_ONE_GROUP; i++) {
       const teamTeamplate: CreatedTeamType = {
-        teamName: teamName[i],
+        teamName: teamNames[i],
         teamList: []
       }
       createdTeamTemplate.push(teamTeamplate);
