@@ -8,8 +8,6 @@ import {
 import { Button } from '../ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerListContext';
-import { playerListData, saveTeamIcon } from '@/constants';
-import Image from 'next/image';
 import { CreatedTeamType, PlayerListDataType } from '@/type';
 import SaveTeamIcon from '@/assets/svg/SaveTeamIcon';
 

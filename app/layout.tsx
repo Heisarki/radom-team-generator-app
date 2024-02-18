@@ -4,9 +4,9 @@ import "./globals.css";
 import AppLayout from "@/components/AppLayout";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PlayerListContextProvider } from "@/context/PlayerListContext";
-// import { Toaster } from "react-hot-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { AddPlayerDrawerContextProvider } from "@/context/AddPlayerDrawerContext";
+import { CreateTeamSettingsContextProvider } from "@/context/CreateTeamSettingContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,21 +23,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-background`}>
-        <PlayerListContextProvider>
-          <AddPlayerDrawerContextProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <AppLayout>
-                {children}
-                <Toaster />
-              </AppLayout>
-            </ThemeProvider>
-          </AddPlayerDrawerContextProvider>
-        </PlayerListContextProvider>
+        <CreateTeamSettingsContextProvider>
+          <PlayerListContextProvider>
+            <AddPlayerDrawerContextProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <AppLayout>
+                  {children}
+                  <Toaster />
+                </AppLayout>
+              </ThemeProvider>
+            </AddPlayerDrawerContextProvider>
+          </PlayerListContextProvider>
+        </CreateTeamSettingsContextProvider>
       </body>
     </html>
   );

@@ -13,15 +13,15 @@ export default function FooterNav() {
                 NAVLIST.map(ele => (
                     <Link
                         key={ele.id}
-                        className={`${pathname === ele.link && 'bg-secondary'} flex flex-col justify-center items-center gap-1 px-3 pt-1 rounded-md cursor-pointer`}
-                        href={ele.link}
+                        className={`${pathname === ele.route && 'bg-secondary'} flex flex-col justify-center items-center gap-1 px-3 pt-1 rounded-md cursor-pointer`}
+                        href={ele.route}
                     >
                         <Image
                             className='h-6'
                             src={ele.icon}
-                            alt={ele.text}
+                            alt={ele.title}
                         />
-                        <p className='text-xs text-muted-foreground'>{ele.text}</p>
+                        <p className='text-xs text-muted-foreground'>{ele.title}</p>
                     </Link>
                 ))
             }

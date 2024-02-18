@@ -1,22 +1,19 @@
-import AddPlayerDialog from "@/components/home/CreatedTeamDialog";
-import AddPlayerDrawer from "@/components/home/AddPlayerDrawer";
-import GroupPlayerList from "@/components/home/GroupPlayerList";
-import PlayerList from "@/components/home/PlayerList";
-import SearchInput from "@/components/home/SearchInput";
-import CreatedTeamDialog from "@/components/home/CreatedTeamDialog";
-export default function Home() {
-  return (
-    <div className="flex relative flex-col pb-10">
-      <div className="sticky top-16 pb-3 bg-background pt-2">
-        <SearchInput />
-      </div>
-      <div className="flex flex-col gap-4 py-2">
-        <GroupPlayerList />
-        <PlayerList />
-      </div>
-      <AddPlayerDrawer />
+"use client"
+import { Button } from '@/components/ui/button'
+import { ROUTE } from '@/constants';
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
-      <CreatedTeamDialog />
-    </div >
-  );
+export default function Page() {
+  const router = useRouter();
+  return (
+    <div className='text-center flex flex-col gap-4'>
+      No Team created!
+      <div className='flex items-center w-full justify-center'>
+        <Button onClick={() => router.push(ROUTE.CREATE_TEAM)}>
+          Create Team
+        </Button>
+      </div>
+    </div>
+  )
 }

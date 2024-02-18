@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
-import HeaderNav from './HeaderNav'
-import FooterNav from './FooterNav'
+import HeaderNav from './header/HeaderNav'
+import FooterNav from './footer/FooterNav'
 
 export default function AppLayout({ children }: { children: ReactNode }) {
     return (
