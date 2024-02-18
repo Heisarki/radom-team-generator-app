@@ -9,6 +9,7 @@ import {
     useEffect,
     ReactNode,
 } from "react";
+import { useToast } from '@/components/ui/use-toast';
 
 /*-------------------------Type----------------------------*/
 export type CreateTeamSettingsContextType = {
@@ -32,8 +33,9 @@ export const CreateTeamSettingsContextProvider = ({
 }: {
     children: ReactNode
 }) => {
+    const { toast } = useToast();
     const [teamNames, setTeamNames] = useState<string[]>([])
-    const [selectedNumberOfTeam, setSelectedNumberOfTeam] = useState("4")
+    const [selectedNumberOfTeam, setSelectedNumberOfTeam] = useState("")
     const [openCreatedTeamSettingsDialog, setOpenCreatedTeamSettingsDialog] = useState(false)
 
     /*-------------Function to handle On Adding Auto Generate Team-----------*/
@@ -44,6 +46,7 @@ export const CreateTeamSettingsContextProvider = ({
     useEffect(() => {
         handleAutoGenerateTeam();
     }, [selectedNumberOfTeam])
+
     /*--------------Function to handle on Continue Click----------------*/
     function handleContinueAddTeam() {
     }
@@ -60,6 +63,24 @@ export const CreateTeamSettingsContextProvider = ({
         setSelectedNumberOfTeam(value)
         console.log("GROUP", value)
     }
+    useEffect(() => {
+        if (selectedNumberOfTeam)
+            toast({
+                variant: "default",
+                title: "Team created",
+                description: <>
+                    You have successufully created {selectedNumberOfTeam} teams
+                    <div className='my-2'>
+                        {
+                            teamNames.map(ele => (
+                                <p className='text-xs' key={ele}>Team {ele}</p>
+                            ))
+                        }
+                    </div>
+                    Click on the {` "Edit" `} icon if you would like to change the Team name.
+                </>,
+            })
+    }, [teamNames])
 
     /*------------------Context value-------------------*/
     const value = {
