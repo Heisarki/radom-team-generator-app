@@ -47,6 +47,30 @@ export default function CreateTeamSettingDialog() {
         })
     }
     function handleCloseDialog() {
+        if (!selectedNumberOfTeam) {
+            toast({
+                variant: "default",
+                title: "Select the number of team",
+                description: `The number of team that you would like to create.`,
+            })
+            return;
+        }
+        toast({
+            variant: "default",
+            title: "Team created",
+            description: <>
+                {/* You have successufully created {selectedNumberOfTeam} teams
+                <div className='my-2'>
+                    {
+                        teamNames.map(ele => (
+                            <p className='text-xs' key={ele}>Team {ele}</p>
+                        ))
+                    }
+                </div> */}
+                Click on a player name to start grouping players in a group of {selectedNumberOfTeam}  and click {" Create Team"}.
+            </>,
+        })
+        setOpenCreatedTeamSettingsDialog(false)
         setOpenCreatedTeamSettingsDialog(false)
     }
     return (
@@ -58,15 +82,19 @@ export default function CreateTeamSettingDialog() {
                 </DialogHeader>
                 <div className='flex flex-col gap-8'>
                     <div className='flex flex-col gap-2'>
-                        <h1 className='text-sm'>Select Number of Team</h1>
-                        <Select onValueChange={(value: any) => handleOnChangeNumberOfTeam(value)} value={selectedNumberOfTeam}>
+                        {/* <h1 className='text-sm'>Select Number of Team</h1> */}
+                        <Select onValueChange={(value: any) =>
+                            handleOnChangeNumberOfTeam(value)}
+                            value={selectedNumberOfTeam}
+                        >
                             <SelectTrigger className="w-full" >
-                                <SelectValue placeholder="Four" defaultValue={"Four"} />
+                                <SelectValue placeholder="Select number of team" />
                             </SelectTrigger>
                             <SelectContent>
                                 {
                                     NUMBER_OF_TEAM_ARR.map((noOfTeamArrEle: any) => (
                                         <SelectItem
+                                            defaultValue={"four"}
                                             key={noOfTeamArrEle.id}
                                             className='capitalize'
                                             value={noOfTeamArrEle.number}
@@ -117,16 +145,8 @@ export default function CreateTeamSettingDialog() {
                         }
                     </ScrollArea>
                 </div>
-                <Button
+                {/* <Button
                     onClick={() => {
-                        // if (!checkIfAllSettingAreValid()) {
-                        //     toast({
-                        //         variant: "default",
-                        //         title: "Setting not valid!",
-                        //         description: ``,
-                        //     })
-                        //     return;
-                        // }
                         toast({
                             variant: "default",
                             title: "Team created",
@@ -147,7 +167,7 @@ export default function CreateTeamSettingDialog() {
                     type="submit"
                 >
                     Continue
-                </Button>
+                </Button> */}
             </DialogContent >
         </Dialog >
     )
