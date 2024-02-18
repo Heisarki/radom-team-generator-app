@@ -12,30 +12,24 @@ import { FaInfoCircle } from "react-icons/fa";
 import { Label } from '@radix-ui/react-dropdown-menu';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
+import { AddPlayerDrawerContextProvider, AddPlayerDrawerContextType, useAddPlayerDrawerContext } from '@/context/AddPlayerDrawerContext';
+import { useToast } from '../ui/use-toast';
+import { PlayerListDataType } from '@/type';
 
 export default function AddPlayerDrawer() {
+    const {
+        playersTobeAddedInputValue,
+        onPlayerNameInputChange,
+        playersTobeAdded,
+        handleAddPlayerClick,
+        handleConfirmAddPlayerClick,
+        handleRemovePlayerClick,
+    }: AddPlayerDrawerContextType = useAddPlayerDrawerContext();
+    const { toast } = useToast();
     const [openDrawer, setOpenDrawer] = useState(false)
     function handleOpenDrawer() {
         setOpenDrawer(true)
-        console.log("GROUP OPEN")
     }
-    function handleRemovePlayer() {
-
-    }
-    const arr = ["Ronaldo",
-        "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-        "Ronaldo", "Messi", "Ramos", "Kaka",
-    ]
     return (
         <>
             <div
@@ -59,21 +53,49 @@ export default function AddPlayerDrawer() {
                         <div className='flex gap-4 flex-col'>
                             <Label className='text-start text-sm'>Player name</Label>
                             <div className="flex w-full items-center space-x-2 ">
-                                <Input type="text" placeholder="Loinel Messi" />
-                                <Button type="submit">Add</Button>
+                                <Input
+                                    type="text"
+                                    placeholder="Loinel Messi"
+                                    onChange={onPlayerNameInputChange}
+                                    value={playersTobeAddedInputValue}
+                                />
+                                <Button
+                                    onClick={handleAddPlayerClick}
+                                    type="submit"
+                                >
+                                    Add
+                                </Button>
                             </div>
                         </div>
                         <ScrollArea className="h-52 w-full rounded-md border p-2">
                             {
-                                arr.map(ele => (
-                                    <div key={ele} aria-label={ele} className='flex flex-row justify-between bg-secondary p-2 px-5 rounded-lg items-center mb-1'>
-                                        <p className="text-sm">{ele}</p>
-                                        <p className='rotate-45 cursor-pointer text-lg' onClick={handleRemovePlayer}>+</p>
+                                playersTobeAdded?.map(ele => (
+                                    <div key={ele.id} aria-label={ele.id} className='flex flex-row justify-between bg-secondary p-2 px-5 rounded-lg items-center mb-1'>
+                                        <p className="text-sm">{ele.name}</p>
+                                        <p
+                                            className='rotate-45 cursor-pointer text-lg'
+                                            onClick={(e: any) => handleRemovePlayerClick(e)}
+                                            aria-label={ele.id}
+                                        >
+                                            +
+                                        </p>
                                     </div>
                                 ))
                             }
                         </ScrollArea>
-                        <Button type="submit">Confirm</Button>
+                        <Button
+                            onClick={() => {
+                                handleConfirmAddPlayerClick();
+                                if (playersTobeAdded.length === 0) {
+                                    return;
+                                }
+                                setOpenDrawer(false);
+                            }
+                            }
+                            type="submit"
+                        >
+                            Confirm
+                        </Button>
                     </div>
                 </DrawerContent>
             </Drawer>

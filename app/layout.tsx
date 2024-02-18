@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { PlayerListContextProvider } from "@/context/PlayerListContext";
 // import { Toaster } from "react-hot-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { AddPlayerDrawerContextProvider } from "@/context/AddPlayerDrawerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,17 +24,19 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-background`}>
         <PlayerListContextProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <AppLayout>
-              {children}
-            </AppLayout>
-            <Toaster />
-          </ThemeProvider>
+          <AddPlayerDrawerContextProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <AppLayout>
+                {children}
+                <Toaster />
+              </AppLayout>
+            </ThemeProvider>
+          </AddPlayerDrawerContextProvider>
         </PlayerListContextProvider>
       </body>
     </html>
