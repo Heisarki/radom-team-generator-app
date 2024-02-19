@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { GoGear } from "react-icons/go";
 import {
     Dialog,
@@ -15,24 +15,23 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useToast } from '../ui/use-toast';
-import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
-import { LiaEditSolid } from "react-icons/lia";
 import { CiEdit } from "react-icons/ci";
-import { MdDeleteForever } from "react-icons/md";
 import { NUMBER_IN_WORDS } from '@/constants';
-import { CreateTeamSettingsContextType, useCreateTeamSettingsContext } from '@/context/CreateTeamSettingContext';
+import { CreateTeamSettingsContextType, TeamNamesArrObjectType, useCreateTeamSettingsContext } from '@/context/CreateTeamSettingContext';
+import { Input } from '../ui/input';
 
 export default function CreateTeamSettingDialog() {
     const {
+        teamNamesArrObject,
         selectedNumberOfTeam, setSelectedNumberOfTeam,
-        teamNames, setTeamNames,
-        handleAutoGenerateTeam,
         handleContinueAddTeam,
-        handleDeleteTeamName,
         handleEditTeamName,
         handleOnChangeNumberOfTeam,
         openCreatedTeamSettingsDialog, setOpenCreatedTeamSettingsDialog,
+        // handleSaveEditedTeamName,
+        handleOnChangeEditedTeamname,
+        editedTeamName, setEditedTeamName,
     }: CreateTeamSettingsContextType = useCreateTeamSettingsContext();
     const { toast } = useToast();
     useEffect(() => {
@@ -50,28 +49,30 @@ export default function CreateTeamSettingDialog() {
         if (!selectedNumberOfTeam) {
             toast({
                 variant: "default",
-                title: "Select the number of team",
-                description: `The number of team that you would like to create.`,
+                title: "Number of team is not selected",
+                description: `Select the number of team that you would like to create.`,
             })
             return;
         }
         toast({
             variant: "default",
-            title: "Team created",
-            description: <>
-                {/* You have successufully created {selectedNumberOfTeam} teams
-                <div className='my-2'>
-                    {
-                        teamNames.map(ele => (
-                            <p className='text-xs' key={ele}>Team {ele}</p>
-                        ))
-                    }
-                </div> */}
-                Click on a player name to start grouping players in a group of {selectedNumberOfTeam}  and click {" Create Team"}.
-            </>,
+            title: "Click on Continue"
         })
-        setOpenCreatedTeamSettingsDialog(false)
-        setOpenCreatedTeamSettingsDialog(false)
+        // toast({
+        //     variant: "default",
+        //     title: "Team created",
+        //     description: <>
+        //         You have successufully created {selectedNumberOfTeam} teams. Click on {` "Edit" `} icon to change the auto generated Team name.
+        //         <div className='my-2'>
+        //             {
+        //                 teamNamesArrObject.map(ele => (
+        //                     <p className='text-xs' key={ele.id}>Team {ele.teamName}</p>
+        //                 ))
+        //             }
+        //         </div>
+        //         Or click on {` "Continue" `} to confirm the Team names
+        //     </>,
+        // })
     }
     return (
         <Dialog open={openCreatedTeamSettingsDialog} onOpenChange={handleCloseDialog}>
@@ -106,68 +107,65 @@ export default function CreateTeamSettingDialog() {
                             </SelectContent>
                         </Select>
                     </div>
-                    {/* <div className='flex flex-col gap-2'>
-                        <div className='flex flex-row justify-between items-center'>
-                            <h1 className='text-sm'>Enter Team name</h1>
-                            <Button
-                                className='rounded-full text-xs'
-                                variant={"outline"}
-                                onClick={handleAutoGenerateTeam}
-                            >
-                                Auto
-                            </Button>
-                        </div>
-                        <Input
-                            placeholder='FC Barcelona'
-                        />
-                    </div> */}
-                    <ScrollArea className="h-52 w-full rounded-md border p-2">
+                    <ScrollArea className={`${teamNamesArrObject.length > 4 ? "pr-2" : "pr-0"} h-52 w-full rounded-md border pb-1`}>
                         {
-                            teamNames.map((teamNameEle: string, index: number) => (
-                                <div key={teamNameEle + index} className='flex flex-row justify-between bg-secondary p-2 px-5 rounded-lg items-center mb-1'>
-                                    <p className="text-sm">
-                                        {
-                                            teamNameEle.length > 20
-                                                ? teamNameEle.substring(0, 22)
-                                                : teamNameEle
-                                        }
-                                    </p>
-                                    <div className='flex flex-row'>
-                                        <div className='cursor-pointer pl-2'>
-                                            <CiEdit />
+                            teamNamesArrObject.map((teamNameEle: TeamNamesArrObjectType) => {
+                                if (teamNameEle.editFlag)
+                                    return (
+                                        <div className='flex flex-row gap-2 px-1 pt-1'>
+                                            <Input
+                                                value={teamNameEle.teamName}
+                                                onChange={(e: any) => handleOnChangeEditedTeamname(e, teamNameEle)}
+                                            />
+                                            {/* <Button
+                                                onClick={handleSaveEditedTeamName}
+                                                variant={"outline"}
+                                                className='text-xs'
+                                            >
+                                                Save
+                                            </Button> */}
                                         </div>
-                                        {/* <div className='cursor-pointer px-1'>
-                                            <MdDeleteForever />
-                                        </div> */}
-                                    </div>
-                                </div>
-                            ))
+                                    )
+                                else
+                                    return (
+                                        <div key={teamNameEle.id} className='flex flex-row justify-between bg-secondary mx-1 mt-1 p-2 px-5 rounded-lg items-center mb-1'>
+                                            <p className="text-sm">
+                                                {
+                                                    teamNameEle.teamName.length > 20
+                                                        ? teamNameEle.teamName.substring(0, 22)
+                                                        : teamNameEle.teamName
+                                                }
+                                            </p>
+                                            <div
+                                                className='cursor-pointer pl-2 '
+                                                aria-label={teamNameEle.id}
+                                                onClick={(e: any) => handleEditTeamName(e, teamNameEle)}>
+                                                <CiEdit />
+                                            </div>
+                                        </div>
+                                    )
+                            })
                         }
                     </ScrollArea>
                 </div>
-                {/* <Button
-                    onClick={() => {
-                        toast({
-                            variant: "default",
-                            title: "Team created",
-                            description: <>
-                                You have successufully created {selectedNumberOfTeam} teams
-                                <div className='my-2'>
-                                    {
-                                        teamNames.map(ele => (
-                                            <p className='text-xs' key={ele}>Team {ele}</p>
-                                        ))
-                                    }
-                                </div>
-                                Click on a player name to start grouping players in a group of {selectedNumberOfTeam}  and click {" Create Team"}.
-                            </>,
-                        })
-                        setOpenCreatedTeamSettingsDialog(false)
-                    }}
-                    type="submit"
-                >
-                    Continue
-                </Button> */}
+                {
+                    teamNamesArrObject.length > 0 && (
+                        <Button
+                            onClick={() => {
+                                toast({
+                                    variant: "default",
+                                    title: "Team created",
+                                    description: `Start groupping players in a group of ${selectedNumberOfTeam} by clicking on the player name`,
+                                })
+                                handleContinueAddTeam();
+                                setOpenCreatedTeamSettingsDialog(false);
+                            }}
+                            type="submit"
+                        >
+                            Continue
+                        </Button>
+                    )
+                }
             </DialogContent >
         </Dialog >
     )
