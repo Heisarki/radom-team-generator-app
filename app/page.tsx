@@ -1,4 +1,5 @@
 "use client"
+import CreatedTeamList from '@/components/home/CreatedTeamList';
 import { Button } from '@/components/ui/button'
 import { ROUTE } from '@/constants';
 import { useRouter } from 'next/navigation'
@@ -8,6 +9,7 @@ export default function Page() {
   const router = useRouter();
   return (
     <div className='text-center flex flex-col gap-4'>
+      {/* <CreatedTeamList /> */}
       No Team created!
       <div className='flex items-center w-full justify-center'>
         <Button onClick={() => router.push(ROUTE.CREATE_TEAM)}>

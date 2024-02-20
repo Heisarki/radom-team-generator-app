@@ -5,7 +5,11 @@ import Chip from '../ui/Chip';
 import { PlayerListDataType } from '@/type';
 
 export default function GroupPlayerList() {
-    const { groupPlayerList, handleOnClickRemoveChip, selectedPlayerListChip }: PlayerListContextType = usePlayerListContext();
+    const {
+        selectedPlayerListChip,
+        groupPlayerList,
+        handleOnClickRemoveChip,
+    }: PlayerListContextType = usePlayerListContext();
     if (groupPlayerList)
         return (
             <div className='flex flex-col overflow-auto border border-background-600 rounded-xl gap-3 py-2'>

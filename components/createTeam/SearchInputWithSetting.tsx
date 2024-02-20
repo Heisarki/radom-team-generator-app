@@ -6,8 +6,13 @@ import { GoGear } from "react-icons/go";
 import { CreateTeamSettingsContextType, useCreateTeamSettingsContext } from '@/context/CreateTeamSettingContext';
 
 export default function SearchInputWithSetting() {
-    const { onSeachInputChange, searchValue }: PlayerListContextType = usePlayerListContext();
-    const { setOpenCreatedTeamSettingsDialog }: CreateTeamSettingsContextType = useCreateTeamSettingsContext();
+    const {
+        searchValue,
+        onSeachInputChange,
+    }: PlayerListContextType = usePlayerListContext();
+    const {
+        setOpenCreatedTeamSettingsDialog
+    }: CreateTeamSettingsContextType = useCreateTeamSettingsContext();
     return (
         <div className="sticky top-16 pb-3 bg-background pt-2 flex flex-row gap-2 items-center w-full">
             <Input

@@ -23,6 +23,8 @@ export type AddPlayerDrawerContextType = {
     handleRemovePlayerClick: (e: any) => void,
     handleConfirmAddPlayerClick: () => void,
     onPlayerNameInputChange: (e: any) => void,
+    openAddPlayerDrawer: boolean,
+    setOpenAddPlayerDrawer: Dispatch<SetStateAction<boolean>>,
 }
 /*-------------------------Context----------------------------*/
 const AddPlayerDrawerContext = createContext({} as AddPlayerDrawerContextType);
@@ -40,6 +42,7 @@ export const AddPlayerDrawerContextProvider = ({
     const { toast } = useToast();
     const [playersTobeAdded, setPlayersTobeAdded] = useState<PlayerListDataType[]>([])
     const [playersTobeAddedInputValue, setPlayersTobeAddedInpuValue] = useState<string>("")
+    const [openAddPlayerDrawer, setOpenAddPlayerDrawer] = useState<boolean>(false)
     /* Handler for "Add" button click to add player entered in the Text field*/
     function handleAddPlayerClick() {
         if (playersTobeAddedInputValue === "") {
@@ -106,6 +109,7 @@ export const AddPlayerDrawerContextProvider = ({
         handleRemovePlayerClick,
         handleConfirmAddPlayerClick,
         onPlayerNameInputChange,
+        openAddPlayerDrawer, setOpenAddPlayerDrawer,
     }
 
     return (
