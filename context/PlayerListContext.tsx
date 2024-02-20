@@ -79,6 +79,7 @@ export const PlayerListContextProvider = ({
   // useEffect(() => { console.log("GROUP TEWAM", teamNames, teamName) }, [teamName])
   const [playersTobeAdded, setPlayersTobeAdded] = useState<PlayerListDataType[]>([])
   const [playersTobeAddedInputValue, setPlayersTobeAddedInpuValue] = useState<string>("")
+  // const [generatedPlayerGroup, setGeneratedPlayerGroup] = useState<CreatedTeamType[]>([])
   /*------------------On changing NUMBER_OF_PLAYER_IN_ONE_GROUP------------------ */
   useEffect(() => {
     NUMBER_OF_PLAYER_IN_ONE_GROUP = Number(selectedNumberOfTeam)
