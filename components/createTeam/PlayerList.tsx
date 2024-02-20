@@ -5,8 +5,12 @@ import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerLis
 import { Button } from '../ui/button'
 
 export default function PlayerList() {
-    const { selectedPlayerListChip, handleOnClickAddChip, filteredPlayerList, createdTeam, handleOnClickCreateTeam }: PlayerListContextType = usePlayerListContext();
-
+    const {
+        filteredPlayerList,
+        selectedPlayerListChip,
+        handleOnClickAddChip,
+        handleOnClickCreateTeam,
+    }: PlayerListContextType = usePlayerListContext();
     return (
         <div className="flex flex-wrap gap-4">
             {

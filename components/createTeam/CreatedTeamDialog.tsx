@@ -12,7 +12,11 @@ import { CreatedTeamType, PlayerListDataType } from '@/type';
 import SaveTeamIcon from '@/assets/svg/SaveTeamIcon';
 
 export default function CreatedTeamDialog() {
-  const { openCreatedTeamDialog, setOpenCreatedTeamDialog, createdTeam }: PlayerListContextType = usePlayerListContext();
+  const {
+    openCreatedTeamDialog, setOpenCreatedTeamDialog,
+    createdTeam,
+    handleSaveTeam
+  }: PlayerListContextType = usePlayerListContext();
   return (
     <Dialog open={openCreatedTeamDialog} onOpenChange={() => setOpenCreatedTeamDialog(false)}>
       <DialogContent className='w-[95vw] p-0 m-0 py-4 rounded-xl'>
@@ -42,7 +46,7 @@ export default function CreatedTeamDialog() {
             }
           </div>
         </ScrollArea>
-        <Button className='mx-4' type="submit">Save Team</Button>
+        <Button className='mx-4' type="submit" onClick={handleSaveTeam}>Save Team</Button>
       </DialogContent >
     </Dialog >
   )

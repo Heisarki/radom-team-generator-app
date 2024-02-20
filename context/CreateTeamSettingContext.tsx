@@ -26,6 +26,7 @@ export type CreateTeamSettingsContextType = {
     handleOnChangeEditedTeamname: (e: any, teamNameObjEle: TeamNamesArrObjectType) => void,
     editedTeamName: string,
     setEditedTeamName: Dispatch<SetStateAction<string>>,
+    handleCloseCreateTeamSettingDialog: () => void,
 }
 export type TeamNamesArrObjectType = {
     teamName: string,
@@ -61,6 +62,12 @@ export const CreateTeamSettingsContextProvider = ({
 
     /*--------------Function to handle on Continue Click----------------*/
     function handleContinueAddTeam() {
+        toast({
+            variant: "default",
+            title: "Team created",
+            description: `Start groupping players in a group of ${selectedNumberOfTeam} by clicking on the player name`,
+        })
+        setOpenCreatedTeamSettingsDialog(false);
         setTeamNames(teamNamesArrObject.map((ele: TeamNamesArrObjectType) => (String(ele.teamName))))
     }
     /*--------------Function to handle Edit Team Name-----------------*/
@@ -97,6 +104,24 @@ export const CreateTeamSettingsContextProvider = ({
         // })
     }
 
+    /**
+     * Handler function on closing the Dialog
+     */
+    function handleCloseCreateTeamSettingDialog() {
+        if (!selectedNumberOfTeam) {
+            toast({
+                variant: "default",
+                title: "Number of team is not selected",
+                description: `Select the number of team that you would like to create.`,
+            })
+            return;
+        }
+        toast({
+            variant: "default",
+            title: "Click on Continue"
+        })
+    }
+
     /*------------------Context value-------------------*/
     const value = {
         teamNamesArrObject,
@@ -109,6 +134,7 @@ export const CreateTeamSettingsContextProvider = ({
         // handleSaveEditedTeamName,
         handleOnChangeEditedTeamname,
         editedTeamName, setEditedTeamName,
+        handleCloseCreateTeamSettingDialog,
     }
 
     return (

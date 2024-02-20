@@ -1,6 +1,6 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
-import { playerListData } from "@/constants";
+import { ROUTE, playerListData } from "@/constants";
 import { CreatedTeamType, PlayerListDataType } from "@/type";
 import { randomizeArrayIndex } from "@/utils/randomizeArrayIndex";
 import {
@@ -13,6 +13,7 @@ import {
   ReactNode,
 } from "react";
 import { CreateTeamSettingsContextType, useCreateTeamSettingsContext } from "./CreateTeamSettingContext";
+import { useRouter } from "next/navigation";
 
 /*-------------------------Type----------------------------*/
 export type PlayerListContextType = {
@@ -39,6 +40,7 @@ export type PlayerListContextType = {
   setPlayersTobeAdded: Dispatch<SetStateAction<PlayerListDataType[]>>,
   playersTobeAddedInputValue: string,
   setPlayersTobeAddedInpuValue: Dispatch<SetStateAction<string>>,
+  handleSaveTeam: () => void,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -54,6 +56,7 @@ export const PlayerListContextProvider = ({
 }: {
   children: ReactNode
 }) => {
+  const router = useRouter();
   const { teamNames, selectedNumberOfTeam }: CreateTeamSettingsContextType = useCreateTeamSettingsContext()
   const { toast } = useToast();
   const [openCreatedTeamDialog, setOpenCreatedTeamDialog] = useState(false)
@@ -149,7 +152,6 @@ export const PlayerListContextProvider = ({
       return acc;
     }, []);
     setGroupPlayerList(filteredArr)
-
   }, [currentPlayerGroup.groupList.length])
 
   /*------On clicking chip for removing Player from a Group--------*/
@@ -271,6 +273,10 @@ export const PlayerListContextProvider = ({
   function handleOnclickClickConfirmAddPlayer() {
 
   }
+  /*---------Saving created Team */
+  function handleSaveTeam() {
+    router.push(ROUTE.HOME)
+  }
 
   /*------------------Context value-------------------*/
   const value = {
@@ -288,6 +294,7 @@ export const PlayerListContextProvider = ({
     openCreatedTeamDialog, setOpenCreatedTeamDialog,
     playersTobeAdded, setPlayersTobeAdded,
     playersTobeAddedInputValue, setPlayersTobeAddedInpuValue,
+    handleSaveTeam,
   }
 
   return (

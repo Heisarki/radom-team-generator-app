@@ -15,6 +15,7 @@ import { AddPlayerDrawerContextType, useAddPlayerDrawerContext } from '@/context
 
 export default function AddPlayerDrawer() {
     const {
+        openAddPlayerDrawer, setOpenAddPlayerDrawer,
         playersTobeAddedInputValue,
         onPlayerNameInputChange,
         playersTobeAdded,
@@ -22,19 +23,16 @@ export default function AddPlayerDrawer() {
         handleConfirmAddPlayerClick,
         handleRemovePlayerClick,
     }: AddPlayerDrawerContextType = useAddPlayerDrawerContext();
-    const [openDrawer, setOpenDrawer] = useState(false)
-    function handleOpenDrawer() {
-        setOpenDrawer(true)
-    }
     return (
         <>
             <div
-                onClick={handleOpenDrawer}
-                className="fixed bottom-[70px] text-slate-50 ml-1 text-3xl bg-primary rounded-full w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-primary/90">
+                onClick={() => setOpenAddPlayerDrawer(true)}
+                className="fixed bottom-[70px] text-slate-50 ml-1 text-3xl bg-primary rounded-full w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-primary/90"
+            >
                 <p className="mb-1">+</p>
             </div>
 
-            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)} onRelease={() => console.log("GROUP CHANGE")}>
+            <Drawer open={openAddPlayerDrawer} onClose={() => setOpenAddPlayerDrawer(false)}>
                 <DrawerContent className='flex flex-col items-center  outline-none'>
                     <div className='flex flex-col gap-2 p-5 max-w-2xl'>
                         <DrawerHeader>
@@ -43,7 +41,7 @@ export default function AddPlayerDrawer() {
                                 <p className='pr-5'>
                                     {`Here you can add new players, once the players are added click on "Confirm" to save them.`}
                                 </p>
-                                <p onClick={() => setOpenDrawer(false)} className='rotate-45 text-3xl cursor-pointer absolute right-5 top-5'>+</p>
+                                <p onClick={() => setOpenAddPlayerDrawer(false)} className='rotate-45 text-3xl cursor-pointer absolute right-5 top-5'>+</p>
                             </DrawerDescription>
                         </DrawerHeader>
                         <div className='flex gap-4 flex-col'>
@@ -80,14 +78,7 @@ export default function AddPlayerDrawer() {
                             }
                         </ScrollArea>
                         <Button
-                            onClick={() => {
-                                handleConfirmAddPlayerClick();
-                                if (playersTobeAdded.length === 0) {
-                                    return;
-                                }
-                                setOpenDrawer(false);
-                            }
-                            }
+                            onClick={handleConfirmAddPlayerClick}
                             type="submit"
                         >
                             Confirm

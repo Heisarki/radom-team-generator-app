@@ -17,65 +17,29 @@ import {
 import { useToast } from '../ui/use-toast';
 import { ScrollArea } from '../ui/scroll-area';
 import { CiEdit } from "react-icons/ci";
-import { NUMBER_IN_WORDS } from '@/constants';
+import { NUMBER_OF_TEAM_ARR } from '@/constants';
 import { CreateTeamSettingsContextType, TeamNamesArrObjectType, useCreateTeamSettingsContext } from '@/context/CreateTeamSettingContext';
 import { Input } from '../ui/input';
 
 export default function CreateTeamSettingDialog() {
     const {
-        teamNamesArrObject,
         selectedNumberOfTeam, setSelectedNumberOfTeam,
+        openCreatedTeamSettingsDialog, setOpenCreatedTeamSettingsDialog,
+        editedTeamName, setEditedTeamName,
+        teamNamesArrObject,
         handleContinueAddTeam,
         handleEditTeamName,
         handleOnChangeNumberOfTeam,
-        openCreatedTeamSettingsDialog, setOpenCreatedTeamSettingsDialog,
         // handleSaveEditedTeamName,
         handleOnChangeEditedTeamname,
-        editedTeamName, setEditedTeamName,
+        handleCloseCreateTeamSettingDialog,
     }: CreateTeamSettingsContextType = useCreateTeamSettingsContext();
-    const { toast } = useToast();
     useEffect(() => {
-        setOpenCreatedTeamSettingsDialog(true)
+        if (!selectedNumberOfTeam)
+            setOpenCreatedTeamSettingsDialog(true)
     }, [])
-    const NUMBER_OF_TEAM_ARR = []
-    for (let i = 0; i < 10; i++) {
-        NUMBER_OF_TEAM_ARR.push({
-            id: i,
-            number: i + 2,
-            numberInWords: NUMBER_IN_WORDS[i]
-        })
-    }
-    function handleCloseDialog() {
-        if (!selectedNumberOfTeam) {
-            toast({
-                variant: "default",
-                title: "Number of team is not selected",
-                description: `Select the number of team that you would like to create.`,
-            })
-            return;
-        }
-        toast({
-            variant: "default",
-            title: "Click on Continue"
-        })
-        // toast({
-        //     variant: "default",
-        //     title: "Team created",
-        //     description: <>
-        //         You have successufully created {selectedNumberOfTeam} teams. Click on {` "Edit" `} icon to change the auto generated Team name.
-        //         <div className='my-2'>
-        //             {
-        //                 teamNamesArrObject.map(ele => (
-        //                     <p className='text-xs' key={ele.id}>Team {ele.teamName}</p>
-        //                 ))
-        //             }
-        //         </div>
-        //         Or click on {` "Continue" `} to confirm the Team names
-        //     </>,
-        // })
-    }
     return (
-        <Dialog open={openCreatedTeamSettingsDialog} onOpenChange={handleCloseDialog}>
+        <Dialog open={openCreatedTeamSettingsDialog} onOpenChange={handleCloseCreateTeamSettingDialog}>
             <DialogContent className='w-[95vw] rounded-xl'>
                 <DialogHeader className='flex flex-row items-center gap-2'>
                     <GoGear size={"18px"} className='mt-1.5' />
@@ -151,17 +115,7 @@ export default function CreateTeamSettingDialog() {
                 {
                     teamNamesArrObject.length > 0 && (
                         <Button
-                            onClick={() => {
-                                toast({
-                                    variant: "default",
-                                    title: "Team created",
-                                    description: `Start groupping players in a group of ${selectedNumberOfTeam} by clicking on the player name`,
-                                })
-                                handleContinueAddTeam();
-                                setOpenCreatedTeamSettingsDialog(false);
-                            }}
-                            type="submit"
-                        >
+                            onClick={handleContinueAddTeam}>
                             Continue
                         </Button>
                     )
