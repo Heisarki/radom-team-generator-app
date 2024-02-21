@@ -14,6 +14,9 @@ import {
 } from "react";
 import { CreateTeamSettingsContextType, useCreateTeamSettingsContext } from "./CreateTeamSettingContext";
 import { useRouter } from "next/navigation";
+import { HomeContextType, useHomeContext } from "./HomeContext";
+import { formatDateToString } from "@/utils";
+import { v4 } from 'uuid'
 
 /*-------------------------Type----------------------------*/
 export type PlayerListContextType = {
@@ -57,6 +60,7 @@ export const PlayerListContextProvider = ({
   children: ReactNode
 }) => {
   const router = useRouter();
+  const { generatedTeamList, setGeneratedTeamList }: HomeContextType = useHomeContext();
   const { teamNames, selectedNumberOfTeam }: CreateTeamSettingsContextType = useCreateTeamSettingsContext()
   const { toast } = useToast();
   const [openCreatedTeamDialog, setOpenCreatedTeamDialog] = useState(false)
@@ -76,10 +80,9 @@ export const PlayerListContextProvider = ({
     groupNumber: GROUP_NUMBER[currentGroupIndex],
     groupList: []
   })
-  // useEffect(() => { console.log("GROUP TEWAM", teamNames, teamName) }, [teamName])
   const [playersTobeAdded, setPlayersTobeAdded] = useState<PlayerListDataType[]>([])
   const [playersTobeAddedInputValue, setPlayersTobeAddedInpuValue] = useState<string>("")
-  // const [generatedPlayerGroup, setGeneratedPlayerGroup] = useState<CreatedTeamType[]>([])
+
   /*------------------On changing NUMBER_OF_PLAYER_IN_ONE_GROUP------------------ */
   useEffect(() => {
     NUMBER_OF_PLAYER_IN_ONE_GROUP = Number(selectedNumberOfTeam)
@@ -276,9 +279,21 @@ export const PlayerListContextProvider = ({
   }
   /*---------Saving created Team */
   function handleSaveTeam() {
+    setGroupPlayerList([])
+    setConstantPlayerList(playerListData.data)
+    setFilteredPlayerList(playerListData.data)
+    setSelectedPlayerListChip([])
+    setCreatedTeam([])
+    setCurrentGroupIndex(0)
+    setCurrentPlayerGroup({
+      groupNumber: GROUP_NUMBER[0],
+      groupList: []
+    })
+    setOpenCreatedTeamDialog(false)
+    setGeneratedTeamList((prev: any) => ([...prev, { id: v4(), date: formatDateToString(new Date()), createdTeam: createdTeam }]))
     router.push(ROUTE.HOME)
   }
-
+  useEffect(() => { console.log("generate", generatedTeamList) }, [generatedTeamList])
   /*------------------Context value-------------------*/
   const value = {
     constantPlayerList, setConstantPlayerList,

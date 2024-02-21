@@ -26,7 +26,7 @@ export default function CreatedTeamDialog() {
     // Simulating loadingPlayers delay for demonstration
     setTimeout(() => {
       setLoadingPlayers(false)
-    }, 1200);
+    }, 300);
     setTimeout(() => {
       setLoadingTeamName(false)
     }, 1);
@@ -49,7 +49,7 @@ export default function CreatedTeamDialog() {
                 // Teams created
                 <div key={createdTeamELe.teamName} className='grid grid-rows-1 border rounded-xl pb-2' >
                   <div className={twMerge(
-                    'border w-full h-28 pl-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary transition-transform duration-500 ease-[cubic-bezier(0.42, 0, 0, 1.05)]',
+                    'w-full h-28 pl-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary transition-transform duration-700 ease-[cubic-bezier(0.42, 0, 0, 1.05)]',
                     loadingTeamName ? "scale-0" : "scale-100"
                   )}
                   >
