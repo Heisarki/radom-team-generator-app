@@ -245,7 +245,7 @@ export const PlayerListContextProvider = ({
   }
   /*-------On clicking generating Team player handler------------*/
   function handleOnClickCreateTeam() {
-    if (groupPlayerList[groupPlayerList.length - 1].groupList.length !== NUMBER_OF_PLAYER_IN_ONE_GROUP) {
+    if (!groupPlayerList.length || groupPlayerList[groupPlayerList.length - 1].groupList.length !== NUMBER_OF_PLAYER_IN_ONE_GROUP) {
       // toaster.error("All the players must be grouped!")
       toast({
         variant: "default",
