@@ -3,9 +3,10 @@ import CreatedTeamList from '@/components/home/CreatedTeamList';
 import { Button } from '@/components/ui/button'
 import { HomeContextType, useHomeContext } from '@/context/HomeContext';
 import { GeneratedTeamListType } from '@/type';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Accordion } from '@/components/ui/accordion';
 import Loading from '@/components/ui/loading';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Page() {
   const {
@@ -17,36 +18,43 @@ export default function Page() {
     handleCloseConfirmDeleteDialog,
   }: HomeContextType = useHomeContext();
   console.log({ generatedTeamList })
+  /**
+   * Imitating api call
+   */
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => { setIsLoading(false) }, 1000)
+  }, [])
   return (
     <div className='text-center flex flex-col gap-4' >
-      <Loading loading={!generatedTeamList.length}>
-        <Accordion type="single" collapsible className='flex flex-col gap-4'>
-          {
-            generatedTeamList?.length > 0
-            && generatedTeamList?.map((createdTeamELE: GeneratedTeamListType) => (
-              <CreatedTeamList
-                key={createdTeamELE.id}
-                createdTeam={createdTeamELE}
-                handleConfirmDeleteCreatedTeam={handleConfirmDeleteCreatedTeam}
-                openConfirmDeleteDialog={openConfirmDeleteDialog}
-                handleCloseConfirmDeleteDialog={handleCloseConfirmDeleteDialog}
-                handleOpenConfirmDeleteDialog={handleOpenConfirmDeleteDialog}
-              />
-            ))
-          }
-        </Accordion>
+      <Accordion type="single" collapsible className='flex flex-col gap-4'>
         {
-          !generatedTeamList.length &&
-          <>
-            No Team created!
-            <div className='flex items-center w-full justify-center'>
-              <Button onClick={handleCreatTeamClick}>
-                Create Team
-              </Button>
+          isLoading
+            ? <div className="flex items-center gap-4 flex-col border rounded-xl px-4 py-5">
+              <Skeleton className="w-full h-6" />
+              <Skeleton className="w-20 h-6 self-end" />
             </div>
-          </>
+            : generatedTeamList?.length > 0
+              ? generatedTeamList?.map((createdTeamELE: GeneratedTeamListType) => (
+                <CreatedTeamList
+                  key={createdTeamELE.id}
+                  createdTeam={createdTeamELE}
+                  handleConfirmDeleteCreatedTeam={handleConfirmDeleteCreatedTeam}
+                  openConfirmDeleteDialog={openConfirmDeleteDialog}
+                  handleCloseConfirmDeleteDialog={handleCloseConfirmDeleteDialog}
+                  handleOpenConfirmDeleteDialog={handleOpenConfirmDeleteDialog}
+                />
+              ))
+              : <p>
+                No team created!
+              </p>
         }
-      </Loading>
+      </Accordion>
+      <div>
+        <Button onClick={handleCreatTeamClick} className='w-fit'>
+          Create Team
+        </Button>
+      </div>
     </div >
   )
 }
