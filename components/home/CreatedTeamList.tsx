@@ -42,7 +42,7 @@ export default function CreatedTeamList({
                             createdTeam?.createdTeam?.map((createdTeamELe: CreatedTeamType) => (
                                 // Teams created
                                 <div key={createdTeamELe.teamName} className='pb-2 overflow-hidden  border rounded-xl' >
-                                    <div className='border w-full h-28 px-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary items-start'>
+                                    <div className='w-full h-28 px-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary items-start'>
                                         <SaveTeamIcon className={"fill-current"} />
                                         <h1 className='text-lg'>
                                             {/* Team */}
