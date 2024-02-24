@@ -66,6 +66,7 @@ export const PlayerListContextProvider = ({
   const [openCreatedTeamDialog, setOpenCreatedTeamDialog] = useState(false)
   const [constantPlayerList, setConstantPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [filteredPlayerList, setFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
+  const [unfilteredPlayerList, setUnFilteredPlayerList] = useState<PlayerListDataType[]>(playerListData?.data)
   const [groupPlayerList, setGroupPlayerList] = useState<GroupPlayerListType[]>([]);
   const [selectedPlayerListChip, setSelectedPlayerListChip] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState('')
@@ -116,6 +117,9 @@ export const PlayerListContextProvider = ({
     setFilteredPlayerList([
       ...filteredPlayerList.filter(ele => ele.id !== id)
     ])
+    // setUnFilteredPlayerList([
+    //   ...filteredPlayerList.filter(ele => ele.id !== id)
+    // ])
     setConstantPlayerList([
       ...filteredPlayerList.filter(ele => ele.id !== id)
     ])

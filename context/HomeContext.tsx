@@ -60,6 +60,7 @@ export const HomeContextProvider = ({
     }
     function handleConfirmDeleteCreatedTeam(id: string) {
         setGeneratedTeamList(generatedTeamList.filter((teamList: GeneratedTeamListType) => teamList.id !== id))
+        setOpenConfirmDeleteDialog(false)
     }
 
     /**
