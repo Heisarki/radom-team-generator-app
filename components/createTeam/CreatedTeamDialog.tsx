@@ -11,16 +11,19 @@ import { PlayerListContextType, usePlayerListContext } from '@/context/PlayerLis
 import { CreatedTeamType, PlayerListDataType } from '@/type';
 import SaveTeamIcon from '@/assets/svg/SaveTeamIcon';
 import { twMerge } from 'tailwind-merge';
+import { getDisableBtnDelayTime } from '@/utils';
 
 export default function CreatedTeamDialog() {
   const {
     openCreatedTeamDialog, setOpenCreatedTeamDialog,
     createdTeam,
-    handleSaveTeam
+    handleSaveTeam,
+    handleRegenerateTeam,
   }: PlayerListContextType = usePlayerListContext();
 
   const [loadingPlayers, setLoadingPlayers] = useState(true)
   const [loadingTeamName, setLoadingTeamName] = useState(true)
+  const [disableSaveTeamBtn, setDisableSaveTeamBtn] = useState(true)
 
   useEffect(() => {
     // Simulating loadingPlayers delay for demonstration
@@ -30,11 +33,18 @@ export default function CreatedTeamDialog() {
     setTimeout(() => {
       setLoadingTeamName(false)
     }, 1);
+
+    if (createdTeam.length)
+      setTimeout(() => {
+        setDisableSaveTeamBtn(false)
+      }, getDisableBtnDelayTime(createdTeam[0].teamList.length))
+
     return () => {
       setLoadingPlayers(true)
       setLoadingTeamName(true)
+      setDisableSaveTeamBtn(true)
     }
-  }, [openCreatedTeamDialog]);
+  }, [openCreatedTeamDialog, createdTeam]);
 
   return (
     <Dialog open={openCreatedTeamDialog} onOpenChange={() => setOpenCreatedTeamDialog(false)}>
@@ -80,7 +90,23 @@ export default function CreatedTeamDialog() {
             }
           </div>
         </ScrollArea>
-        <Button className='mx-4' type="submit" onClick={handleSaveTeam}>Save Team</Button>
+        <div className='flex gap-2  mx-4'>
+          <Button
+            className='w-full'
+            variant={"outline"}
+            onClick={handleRegenerateTeam}
+            disabled={disableSaveTeamBtn}
+          >
+            Regenerate Team
+          </Button>
+          <Button
+            className='w-full'
+            onClick={handleSaveTeam}
+            disabled={disableSaveTeamBtn}
+          >
+            Save Team
+          </Button>
+        </div>
       </DialogContent >
     </Dialog >
   )

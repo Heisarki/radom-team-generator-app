@@ -23,13 +23,13 @@ export default function Page() {
    */
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    setTimeout(() => { setIsLoading(false) }, 1000)
+    setTimeout(() => { setIsLoading(false) }, 500)
   }, [])
   return (
     <div className='text-center flex flex-col gap-4' >
       <Accordion type="single" collapsible className='flex flex-col gap-4'>
         {
-          isLoading
+          isLoading && generatedTeamList.length === 0
             ? <div className="flex items-center gap-4 flex-col border rounded-xl px-4 py-5">
               <Skeleton className="w-full h-6" />
               <Skeleton className="w-20 h-6 self-end" />

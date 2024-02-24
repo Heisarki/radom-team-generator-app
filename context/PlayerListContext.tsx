@@ -44,6 +44,7 @@ export type PlayerListContextType = {
   playersTobeAddedInputValue: string,
   setPlayersTobeAddedInpuValue: Dispatch<SetStateAction<string>>,
   handleSaveTeam: () => void,
+  handleRegenerateTeam: () => void,
 }
 export type GroupPlayerListType = {
   groupNumber: number,
@@ -298,6 +299,16 @@ export const PlayerListContextProvider = ({
     router.push(ROUTE.HOME)
   }
   useEffect(() => { console.log("generate", generatedTeamList) }, [generatedTeamList])
+
+  /**
+   * On clicking of Regenerate team
+   */
+  function handleRegenerateTeam() {
+    setCreatedTeam([])
+    setTimeout(() => {
+      handleOnClickCreateTeam();
+    }, 1)
+  }
   /*------------------Context value-------------------*/
   const value = {
     constantPlayerList, setConstantPlayerList,
@@ -315,6 +326,7 @@ export const PlayerListContextProvider = ({
     playersTobeAdded, setPlayersTobeAdded,
     playersTobeAddedInputValue, setPlayersTobeAddedInpuValue,
     handleSaveTeam,
+    handleRegenerateTeam,
   }
 
   return (
