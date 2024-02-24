@@ -36,8 +36,8 @@ export default function RootLayout({
                 >
                   <AppLayout>
                     {children}
-                    <Toaster />
                   </AppLayout>
+                  <Toaster />
                 </ThemeProvider>
               </AddPlayerDrawerContextProvider>
             </PlayerListContextProvider>
