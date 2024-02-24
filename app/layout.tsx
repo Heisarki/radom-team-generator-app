@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-background`}>
+      <body className={`${inter.className} bg-background`} >
         <HomeContextProvider>
           <CreateTeamSettingsContextProvider>
             <PlayerListContextProvider>

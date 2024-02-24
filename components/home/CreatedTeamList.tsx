@@ -32,44 +32,42 @@ export default function CreatedTeamList({
 }) {
     return (
         <div className='flex flex-col border rounded-xl' key={key}>
-            <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                    <AccordionTrigger className='pr-2'>
-                        <h1 className='text-md text-start pt-2 pl-4'>Created on {createdTeam.date}</h1>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                        <div className='grid grid-cols-2 gap-x-4 gap-y-4 p-2'>
-                            {
-                                createdTeam?.createdTeam?.map((createdTeamELe: CreatedTeamType) => (
-                                    // Teams created
-                                    <div key={createdTeamELe.teamName} className='pb-2 overflow-hidden  border rounded-xl' >
-                                        <div className='border w-full h-28 px-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary items-start'>
-                                            <SaveTeamIcon className={"fill-current"} />
-                                            <h1 className='text-lg'>
-                                                {/* Team */}
-                                                {createdTeamELe.teamName}</h1>
-                                            <p className='text-sm'>{createdTeamELe.teamList.length} Players</p>
-                                        </div>
-                                        <div className='overflow-hidden'>
-                                            <div className='flex flex-col gap-2 pt-2 pl-5 items-start'
-                                                style={{ transition: "all 1s ease-in", transform: "translateY(0%)" }}
-                                            >
-                                                {
-                                                    createdTeamELe.teamList.map((playerEle: PlayerListDataType) => (
-                                                        <>
-                                                            <p key={playerEle.id}>{playerEle.name}</p>
-                                                        </>
-                                                    ))
-                                                }
-                                            </div>
+            <AccordionItem value={createdTeam.id}>
+                <AccordionTrigger className='pr-2'>
+                    <h1 className='text-md text-start pt-2 pl-4'>Created on {createdTeam.date}</h1>
+                </AccordionTrigger>
+                <AccordionContent>
+                    <div className='grid grid-cols-2 gap-x-4 gap-y-4 p-2'>
+                        {
+                            createdTeam?.createdTeam?.map((createdTeamELe: CreatedTeamType) => (
+                                // Teams created
+                                <div key={createdTeamELe.teamName} className='pb-2 overflow-hidden  border rounded-xl' >
+                                    <div className='border w-full h-28 px-5 justify-center flex flex-col gap-1 rounded-xl bg-secondary items-start'>
+                                        <SaveTeamIcon className={"fill-current"} />
+                                        <h1 className='text-lg'>
+                                            {/* Team */}
+                                            {createdTeamELe.teamName}</h1>
+                                        <p className='text-sm'>{createdTeamELe.teamList.length} Players</p>
+                                    </div>
+                                    <div className='overflow-hidden'>
+                                        <div className='flex flex-col gap-2 pt-2 pl-5 items-start'
+                                            style={{ transition: "all 1s ease-in", transform: "translateY(0%)" }}
+                                        >
+                                            {
+                                                createdTeamELe.teamList.map((playerEle: PlayerListDataType) => (
+                                                    <>
+                                                        <p key={playerEle.id}>{playerEle.name}</p>
+                                                    </>
+                                                ))
+                                            }
                                         </div>
                                     </div>
-                                ))
-                            }
-                        </div>
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
             <Button
                 className='w-fit self-end'
                 onClick={handleOpenConfirmDeleteDialog}
