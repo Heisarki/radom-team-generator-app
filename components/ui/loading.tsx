@@ -9,7 +9,7 @@ export default function Loading({
 }) {
     if (loading)
         return (
-            <div className='flex items-center justify-center min-h-screen'>
+            <div className='flex items-center justify-center min-h-[60vh]'>
                 Loading...
             </div>)
     return (
