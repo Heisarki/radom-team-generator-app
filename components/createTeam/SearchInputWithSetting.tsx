@@ -20,6 +20,11 @@ export default function SearchInputWithSetting() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const text = "Search player here  "
     useEffect(() => {
+        if (searchValue) {
+            setCurrentText("")
+            setCurrentIndex(0)
+            return;
+        }
         let delay = 70
         if (currentIndex === text.length - 1)
             delay = 2000
@@ -32,7 +37,7 @@ export default function SearchInputWithSetting() {
             setCurrentText("")
         }
         return () => clearTimeout(timeout);
-    }, [currentIndex]);
+    }, [currentIndex, searchValue]);
     return (
         <div className="sticky top-16 pb-3 bg-background pt-2 flex flex-row gap-2 items-center w-full">
             <Input
@@ -43,7 +48,9 @@ export default function SearchInputWithSetting() {
                 placeholder={currentText}
             />
             <div className="border p-3 rounded-lg cursor-pointer" onClick={() => setOpenCreatedTeamSettingsDialog(true)}>
-                <GoGear size="24px" />
+                <div className='animate-rotate-gear'>
+                    <GoGear size="24px" />
+                </div>
             </div>
         </div>
     )
